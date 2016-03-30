@@ -129,16 +129,7 @@ var io = require('socket.io')(server)
 , socket  = require('socket.io');
 
 io.on("connection", function(socket){
-  console.log('Usuario conectado: ');
-  if(sp!=null){
-    socket.on('ligar',function(){
-      sp.write('A');
-    });
-    socket.on('desligar',function(){
-      sp.write('B');
-    });
-
-  }
+  console.log('Usuario conectado');
 
   socket.on('disconnect', function () {
     console.log("desconectado!")
@@ -181,10 +172,19 @@ io.on("connection", function(socket){
         sp.on('open', function(){
           console.log('Arduino: Conectado!');
           socket.emit('Arduino',{msg: true});
+          socket.on('ligar',function(){
+            console.log('ligar');
+            sp.write('A');
+          });
+          socket.on('desligar',function(){
+            console.log('desligar');
+            sp.write('B');
+          });
+
         })
         sp.on('data', function(data){
-            console.log(data);
-          });
+          console.log(data);
+        });
 
         sp.on('error', function(e){
           console.log('Error na conexão com Arduino');

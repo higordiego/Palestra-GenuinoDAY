@@ -12,6 +12,12 @@ var express           = require('express')
 
 
 
+app.use(function(req, res, next){
+   res.setHeader("Cache-Control", "public, max-age=2592000");//Cache de 1 dia
+   res.setHeader("Expires", new Date(Date.now() + 2592000000).toUTCString());
+   next();
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
