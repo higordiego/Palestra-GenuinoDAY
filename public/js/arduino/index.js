@@ -1,5 +1,7 @@
 app.controller('arduino', ['$scope','$http','mySocket', function($scope,$http,mySocket){
 	mySocket.on('connect', function(){
+		$scope.ligar = true;
+		$scope.desligar = true;
 		console.log('Usuário Conectado');
 		
 		$scope.ligarLuz = function(){
