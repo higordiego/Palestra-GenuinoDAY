@@ -1,7 +1,5 @@
 app.controller('arduino', ['$scope','$http','mySocket', function($scope,$http,mySocket){
 	mySocket.on('connect', function(){
-		$scope.ligar = true;
-		$scope.desligar = true;
 		console.log('Usuário Conectado');
 		
 		$scope.ligarLuz = function(){
@@ -13,7 +11,6 @@ app.controller('arduino', ['$scope','$http','mySocket', function($scope,$http,my
 			mySocket.emit('desligar');
 		};
 		mySocket.on('Arduino',function(data){
-			console.log(data);
 			if(data.msg == true){
 				$scope.Arduino = 'alert-success';	
 				$scope.arduino = 'Conexão com Arduino ok!'
@@ -22,5 +19,8 @@ app.controller('arduino', ['$scope','$http','mySocket', function($scope,$http,my
 				$scope.arduino = 'Erro na conexão com o  Arduino'
 			}
 		});
+		mySocket.on('sniff', function(data){
+			$scope.dados = data.dados;
+		})
 	})	
 }])

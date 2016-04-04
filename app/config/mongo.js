@@ -3,7 +3,7 @@ module.exports = function(app){
 	,   db = mongoose.connection;
 	
 	// Abrir Conexão 
-	mongoose.connect('mongodb://localhost/secruity-arduino', function(err){
+	mongoose.connect('mongodb://localhost/genuino', function(err){
 
 		if(err) {
 			console.log("Error conectar mongo db: " + err);

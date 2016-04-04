@@ -1,7 +1,7 @@
 extends layout
 block content
 	div(class="container" style="margin-top:50px")
-		form(ng-controller="arduino")
+		form(ng-controller="arduino" )
 			div(class="col-md-6 col-xs-6 col-sm-6 col-lg-6")
 				div(class="row")
 					fieldset
@@ -15,3 +15,11 @@ block content
 					div(class="col-md-2 col-xs-2 col-sm-2 col-lg-2")
 						label Desliga
 						button(class="btn glyphicon glyphicon-off btn-danger", ng-click='apagarLuz()', ng-disabled='desligar')
+			div(class="row col-md-5 col-md-offset-1")
+				div(class="row")
+					fieldset 
+						legend Código Limpo
+					label Dados Vindo da Serial
+					textarea(class="form-control" ,cols="10" ,rows="7", ng-model='dados')
+						
+							

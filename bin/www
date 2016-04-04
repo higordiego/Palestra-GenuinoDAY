@@ -11,12 +11,14 @@
  ,   https      = require('https')
  ,   spdy       = require('spdy');
 
+
 /**
  * Get port from environment and store in Express.
  */
 
  var port = normalizePort(process.env.PORT || '443');
  app.set('port', port);
+ var Dados = app.models.dados;
 
 /**
  * Create HTTP server.
@@ -118,6 +120,7 @@ var server = spdy.createServer(https.Server, options, app);
   debug('Listening on ' + bind);
 }
 
+
 // Serial.port
 var serialPort  = require("serialport")
 , SerialPort      = serialPort.SerialPort
@@ -174,18 +177,22 @@ io.on("connection", function(socket){
           socket.emit('Arduino',{msg: true});
           socket.on('ligar',function(){
             console.log('ligar');
-            sp.write('A');
+            sp.write('B');
           });
           socket.on('desligar',function(){
             console.log('desligar');
-            sp.write('B');
+            sp.write('A');
           });
 
         })
         sp.on('data', function(data){
-          console.log(data);
+             // var dados = new Dados();
+             // dados.serial = data;
+             // dados.save(function(err){
+             //    console.log(err);
+             // })
+             socket.emit('sniff', {dados: data}); 
         });
-
         sp.on('error', function(e){
           console.log('Error na conexão com Arduino');
           socket.emit('Arduino', {msg: false});
